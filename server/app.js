@@ -19,11 +19,11 @@ app.use(logRoute);
 // Set up server roots 
 app.get('/', (req, res) => {
     res.send('You have reached the wishing well');
-})
+});
 
-
-
-
+app.get('/wishes', (req, res) => {
+    res.send(wishes)
+});
 
 
 

@@ -24,3 +24,6 @@ const wishes = [
         "votes": 6
     }
 ]
+
+
+module.exports = wishes;
