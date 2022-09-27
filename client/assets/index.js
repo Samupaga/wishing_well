@@ -22,11 +22,14 @@ async function displayWishDetails() {
     // Loop through wishes
     for (let wish of wishes){
 
-        const elem = document.createElement("li");
+        const header = document.createElement("h3");
+        const subject = document.createElement('p');
 
-        elem.textContent = wish["title"];
+        header.textContent = wish['title']
+        subject.textContent = wish["wish"];
 
-        wishlist.appendChild(elem);
+        wishlist.appendChild(header);
+        wishlist.appendChild(subject)
     }
     console.log(wishes)
 }
