@@ -16,8 +16,8 @@ async function displayWishDetails() {
     // Obtain wish information 
     const wishes = await getWishes();
 
-    // Make reference to wish-list
-    const wishList = document.getElementById('wishlist');
+    // Make reference to wishlist
+    const wishlist = document.getElementById('wishlist');
 
     // Loop through wishes
     for (let wish of wishes){
@@ -26,7 +26,7 @@ async function displayWishDetails() {
 
         elem.texContent = wish["wish"];
 
-        wishList.appendChild(elem);
+        wishlist.appendChild(elem);
     }
     console.log(wishes)
 }

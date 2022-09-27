@@ -21,10 +21,37 @@ app.get('/', (req, res) => {
     res.send('You have reached the wishing well');
 });
 
+// Show all wishes
 app.get('/wishes', (req, res) => {
     res.send(wishes)
 });
 
+// Show wishes based on descending vote count
+app.get('/wishes/popular', (req, res) => {
+    const sortedWishes = wishes.sort((a, b) => b.votes - a.votes);
+
+    res.send(sortedWishes);
+})
+
+
+// Allow users to add a wish to the well 
+app.post('/wishes', (req, res) => {
+    
+    // extract wish data
+    const data = req.body
+
+    // add an id to the wish
+    data['id'] = wishes.length 
+
+    // set a starting number of votes
+    data['votes'] = 0
+    
+    // add wish to the wishing well
+    wishes.push(data)
+
+    // successful additon
+    res.status(201).send(data)
+})
 
 
 
