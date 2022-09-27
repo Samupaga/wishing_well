@@ -22,13 +22,49 @@ async function displayWishDetails() {
     // Loop through wishes
     for (let wish of wishes){
 
-        const elem = document.createElement('li');
+        const elem = document.createElement("li");
 
-        elem.texContent = wish["wish"];
+        elem.textContent = wish["title"];
 
         wishlist.appendChild(elem);
     }
     console.log(wishes)
 }
+
+
+async function makeAWish(e) {
+    // Stop refresh on submission
+    e.preventDefault();
+
+    // Extract data into an object
+    const data = {
+        title : e.target.title.value,
+        wish : e.target.wish.value
+    }
+
+    // Set fetch request options
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify(data)
+    }
+
+    // Make a fetch request sending the data
+    const response = await fetch('http://localhost:3000/wishes', options);
+
+    if (response.status  === 201){
+        alert('You have made your wish')
+        window.location.reload();
+    }
+
+}
+
+
+// make form for submission
+const form = document.querySelector("#create-form");
+form.addEventListener("submit", makeAWish);
+
 
 displayWishDetails();

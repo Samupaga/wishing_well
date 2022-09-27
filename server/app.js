@@ -38,20 +38,60 @@ app.get('/wishes/popular', (req, res) => {
 app.post('/wishes', (req, res) => {
     
     // extract wish data
-    const data = req.body
+    const newWish = req.body
 
     // add an id to the wish
-    data['id'] = wishes.length 
+    newWish['id'] = wishes.length 
 
     // set a starting number of votes
-    data['votes'] = 0
+    newWish['votes'] = 0
     
     // add wish to the wishing well
-    wishes.push(data)
+    wishes.push(newWish)
 
     // successful additon
-    res.status(201).send(data)
+    res.status(201).send(newWish)
 })
+
+
+// Select a wish from its id
+app.get('/wishes/:id', (req, res) => {
+
+    try {
+        // Need link form URL
+        const id = parseInt(req.params.id)
+        
+        if (isNaN(id)){
+            throw "Invalid input!"
+        } else if ( id < 0|| id >= wishes.length){
+            throw "No such wish exists"
+        }
+        // If no such issues, continue
+        
+        // Filter wishes for relevant id
+        const filteredWishes = wishes.filter(w => w.id == req.params.id)
+    
+        // Display specific wish
+        res.send(filteredWishes[0])
+    } catch (e){
+        // Send an error message if unsuccessful
+        res.status(404).send({error: e})
+    }
+    
+})
+
+// Delete a wish based on its id
+app.delete('/wishes/:id', (req, res) => {
+
+    const id = parseInt(req.params.id)
+
+    // Want to exlucde wish with id to be deleted
+    wishes = wishes.filter(w => w.id != id);
+
+    // Report success
+    res.send({message: 'Wish removed successfully'})
+})
+
 
 
 
